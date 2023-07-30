@@ -234,8 +234,39 @@ select * from employees;
 -- TASK 12 - Display those employees firstname,lastname and salary
 --           who get higher salary than the employee whose employee_id is 104
 
+            -- STEP 1
+            SELECT SALARY FROM EMPLOYEES
+            WHERE EMPLOYEE_ID=104;  --6000
+
+            -- STEP 2--> FIND ME WHO IS GETTING MORE THAN 6000
+            SELECT * FROM EMPLOYEES
+            WHERE SALARY>6000;
+
+            -- STEP 3 --> MAKE IT DYNAMIC
+            SELECT * FROM EMPLOYEES
+            WHERE SALARY>(SELECT SALARY FROM EMPLOYEES
+                          WHERE EMPLOYEE_ID=104);
+
 -- TASK 13 -  Display Manager firstname,lastname of Peter,Vargas from employees table
 
+        SELECT EMPLOYEE_ID,FIRST_NAME,LAST_NAME,MANAGER_ID FROM EMPLOYEES;
+
+        -- STEP 1
+        SELECT MANAGER_ID FROM EMPLOYEES
+        WHERE FIRST_NAME='Peter' AND LAST_NAME='Vargas'; --124
+
+        -- STEP 2--> FIND ME WHAT IS THE NAME OF MANAGER
+        SELECT * FROM EMPLOYEES
+        WHERE EMPLOYEE_ID=124;
+
+        -- STEP 3 --> MAKE IT DYNAMIC
+        SELECT * FROM EMPLOYEES
+        WHERE EMPLOYEE_ID=(SELECT MANAGER_ID FROM EMPLOYEES
+                           WHERE FIRST_NAME='Peter' AND LAST_NAME='Vargas');
+
+
+-- HOMEWORK
+        SELECT * FROM DEPARTMENTS;
 -- TASK 14 -  display all information who is getting 11th highest salary
 
 -- TASK 15 - Display employees first_name,last_name who is working in Marketing department
@@ -248,22 +279,86 @@ select * from employees;
     -- DDL --> DATA DEFINITION LANGUAGE
 
 
-
-
 ----- JOINS ----
+
+        -- INNER
+        -- OUTER ---> LEFT / RIGHT / FULL
+        -- SELF JOIN
 
 -- INNER JOIN RETURN ONLY THE DATA THAT MATCH FROM BOTH TABLE ACCORDING TO CONDITION
 -- Display all first_name and  related department_name
 
+    SELECT * FROM EMPLOYEES;
+    SELECT * FROM DEPARTMENTS;
+
+    -- Steven Executive
+    -- David IT
+    -- .......
+    -- ....
+
+    SELECT FIRST_NAME,DEPARTMENT_NAME
+    FROM EMPLOYEES
+         INNER JOIN DEPARTMENTS ON EMPLOYEES.DEPARTMENT_ID = DEPARTMENTS.DEPARTMENT_ID;
+
+    -- MISSING KIMBERLY SINCE SHE DONT HAVE ANY DEPARTMENT ID
+
+    -- TABLE ALIASES
+    SELECT FIRST_NAME,DEPARTMENT_NAME
+    FROM EMPLOYEES E
+             INNER JOIN DEPARTMENTS D ON E.DEPARTMENT_ID = D.DEPARTMENT_ID;
+
+
+    -- TABLE ALIASES
+    SELECT FIRST_NAME,DEPARTMENT_NAME,D.DEPARTMENT_ID
+    FROM EMPLOYEES E
+              JOIN DEPARTMENTS D ON E.DEPARTMENT_ID = D.DEPARTMENT_ID;
+
+    -- Is inner join same as join?
+    -- INNER JOINS --> JOIN
+
+
+
 -- LEFT OUTER JOIN RETURN EVERYTHING THAT MATCH + UNIQUE FOR LEFT
 -- Display all first_name and department_name including the  employee without department
+    SELECT FIRST_NAME,DEPARTMENT_NAME,D.DEPARTMENT_ID
+    FROM EMPLOYEES E
+           LEFT JOIN DEPARTMENTS D ON E.DEPARTMENT_ID = D.DEPARTMENT_ID;
+
+    -- DISPLAY EMPLOYEES WHO IS WORKING FOR DEPARTMENT THAT STARTSWITH S
+    SELECT FIRST_NAME,DEPARTMENT_NAME,D.DEPARTMENT_ID
+    FROM EMPLOYEES E
+             LEFT JOIN DEPARTMENTS D ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+    WHERE DEPARTMENT_NAME LIKE 'S%';
+
+    -- Display all first_name and department_name including the department without employee
+    SELECT FIRST_NAME,DEPARTMENT_NAME,D.DEPARTMENT_ID
+    FROM DEPARTMENTS D LEFT JOIN EMPLOYEES E ON D.DEPARTMENT_ID = E.DEPARTMENT_ID;
+
+
 
 -- RIGHT OUTER JOIN RETURN EVERYTHING THAT MATCH + UNIQUE FOR RIGHT
 -- Display all first_name and department_name including the department without employee
 
+    SELECT * FROM EMPLOYEES;
+    SELECT * FROM DEPARTMENTS;
+
+    SELECT FIRST_NAME,DEPARTMENT_NAME,D.DEPARTMENT_ID
+    FROM EMPLOYEES E RIGHT JOIN DEPARTMENTS D ON E.DEPARTMENT_ID = D.DEPARTMENT_ID;
+
+
+
+    --Display all first_name and department_name including the  employee without department
+    SELECT FIRST_NAME,DEPARTMENT_NAME,D.DEPARTMENT_ID
+    FROM DEPARTMENTS D
+             RIGHT JOIN EMPLOYEES E ON E.DEPARTMENT_ID = D.DEPARTMENT_ID;
+
 -- FULL OUTER JOIN RETURNS EVERYTHING
 -- Display all firstname and department name including the department without employees
 -- and also employees without the department
+    SELECT FIRST_NAME,DEPARTMENT_NAME,D.DEPARTMENT_ID
+    FROM DEPARTMENTS D
+             FULL JOIN EMPLOYEES E ON E.DEPARTMENT_ID = D.DEPARTMENT_ID;
+
 
 
 
