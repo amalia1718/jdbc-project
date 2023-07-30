@@ -1,3 +1,37 @@
+-- IDEs for database conn
+    -- Intellij Ultimate
+    -- SQL Developer
+    -- DBeaver
+    -- etc
+
+-- URL --> jdbc:oracle:thin:@52.91.163.234:1521:XE
+--   username : hr
+--   password : hr
+
+
+-- BACKEND -- BUSINEES LOGIC
+/**
+
+  public static Product getProducts(String name){
+
+    // getting data from Database
+    // SELECT * FROM PRODUCTS
+       WHERE NAME='%java book%';
+
+    // store all data in a place
+    List<Product> products=new Product();
+
+    return products;
+
+
+  }
+
+ */
+
+
+select * from employees;
+
+
 --------------- SELECT ,WHERE, LIKE -------------------
 
 --TASK 1 - display department names  from departments table
