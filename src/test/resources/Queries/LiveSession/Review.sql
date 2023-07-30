@@ -220,6 +220,8 @@ select * from employees;
         GROUP BY DEPARTMENT_ID;
 
 
+
+
 -- TASK 11 -3  display department id where employees count is less than 5
 
         SELECT DEPARTMENT_ID,COUNT(*) AS EMPLOYEE_COUNT
