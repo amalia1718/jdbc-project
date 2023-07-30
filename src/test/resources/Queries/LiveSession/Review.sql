@@ -109,10 +109,25 @@ select * from employees;
 
 -- TASK 8 - display country id and country name where country name ends with a
 
+            SELECT COUNTRY_ID,COUNTRY_NAME
+            FROM COUNTRIES
+            WHERE COUNTRY_NAME LIKE '%a';
 
 
+-- IQ --> GET ME EMPLOYEES WHERE EMPLOYEE IDs are EVEN NUMBER
+            SELECT EMPLOYEE_ID,FIRST_NAME,LAST_NAME
+            FROM EMPLOYEES
+            WHERE MOD(EMPLOYEE_ID,2)=0;
+
+            -- EMPLOYEEID --> DIVIDED    --> 100  --> 101
+            -- 2          --> DIVISIOR   -->  2   --> 2
+                          --> REMAINING  -->  0   --> 1
 
 -- TASK 9 -  display country id and country name where country name ends with a and third letter is i
+            SELECT COUNTRY_ID,COUNTRY_NAME
+            FROM COUNTRIES
+            WHERE COUNTRY_NAME LIKE '__i%a';
+
 
 
 ------ INTERVIEW QUESTION  -->
@@ -121,26 +136,96 @@ select * from employees;
     who earn a salary larger than 3000
     Sort your results in ascending order of the last 3 characters in the employees first_name
     if two or more employees have first_names ending with same 3 characters, then sort them by highest salary
+
 */
+
+    SELECT FIRST_NAME,SALARY,LOWER(SUBSTR(FIRST_NAME,-3)) FROM EMPLOYEES
+    WHERE SALARY>3000
+    ORDER BY LOWER(SUBSTR(FIRST_NAME,-3)) ASC,SALARY DESC;
+
+
+    -- Steven ---> SUBSTR(FIRST_NAME,-3) --> ven
+    -- Neena  ---> SUBSTR(FIRST_NAME,-3) --> ena
+
 
 
 
 
 --------------- GROUP BY, HAVING  -------------------
 
--- TASK 10- 1 -  how many city we have in each country from locations table
+-- TASK 10- 1 -  How many city we have in each country from locations table
+        SELECT * FROM LOCATIONS;
+
+        SELECT COUNTRY_ID,COUNT(*) FROM LOCATIONS
+        GROUP BY  COUNTRY_ID;
+
+
+        SELECT COUNTRY_ID,COUNT(CITY) FROM LOCATIONS
+        GROUP BY  COUNTRY_ID;
+
+
+        -- COUNT(*) VS COUNT(COLUMN NAME)
+        SELECT FIRST_NAME,DEPARTMENT_ID FROM EMPLOYEES;
+
+        SELECT COUNT(DEPARTMENT_ID) FROM EMPLOYEES;
+        -- IT WILL IGNORE NULL VALUES --106
+
+        SELECT COUNT(*) FROM EMPLOYEES;
+        -- IT COUNT ROW --> 107
+
 
 -- TASK 10- 2  - order them based on city count in desc
 
+        SELECT COUNTRY_ID,COUNT(*) AS CITY_COUNT FROM LOCATIONS
+        GROUP BY  COUNTRY_ID
+        ORDER BY  CITY_COUNT DESC;
+
 -- TASK 10- 3 -  filter result where country id starts with C
+        SELECT COUNTRY_ID,CITY
+        FROM LOCATIONS;
+        -- WHERE
+        SELECT COUNTRY_ID,COUNT(*) AS CITY_COUNT
+        FROM LOCATIONS
+        WHERE COUNTRY_ID LIKE 'C%'
+        GROUP BY  COUNTRY_ID
+        ORDER BY  CITY_COUNT DESC;
+
+        -- HAVING - BAD PRACTICE
+        SELECT COUNTRY_ID,COUNT(*) AS CITY_COUNT
+        FROM LOCATIONS
+        GROUP BY  COUNTRY_ID
+        HAVING COUNTRY_ID LIKE 'C%'
+        ORDER BY  CITY_COUNT DESC;
+
+
 
 -- TASK 10- 4 -  display country id if city count is bigger than 1
+        SELECT COUNTRY_ID,COUNT(*) AS CITY_COUNT
+        FROM LOCATIONS --MIGHT BE  JOINS  TOO
+        GROUP BY  COUNTRY_ID
+        HAVING COUNT(*)>1
+        ORDER BY  CITY_COUNT DESC;
+
 
 -- TASK 11 -1  How many employees is working for each department
 
+        SELECT DEPARTMENT_ID,COUNT(*) AS EMPLOYEE_COUNT
+        FROM EMPLOYEES
+        GROUP BY DEPARTMENT_ID;
+
 -- TASK 11 -2  ignore null departments
+        SELECT DEPARTMENT_ID,COUNT(*) AS EMPLOYEE_COUNT
+        FROM EMPLOYEES
+        WHERE DEPARTMENT_ID IS NOT NULL
+        GROUP BY DEPARTMENT_ID;
+
 
 -- TASK 11 -3  display department id where employees count is less than 5
+
+        SELECT DEPARTMENT_ID,COUNT(*) AS EMPLOYEE_COUNT
+        FROM EMPLOYEES
+        GROUP BY DEPARTMENT_ID
+        HAVING COUNT(*)<5;
 
 ------- SUBQUERY -------
 
