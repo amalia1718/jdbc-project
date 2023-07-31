@@ -7,7 +7,7 @@ import java.sql.*;
 public class P01_JDBCIntro {
 
     //CONNECTION STRING
-    String dbUrl = "jdbc:oracle:thin:@54.86.2.212:1521:XE";
+    String dbUrl = "jdbc:oracle:thin:@44.201.221.73:1521:XE";
     String dbUsername ="hr";
     String dbPassword = "hr";
 
