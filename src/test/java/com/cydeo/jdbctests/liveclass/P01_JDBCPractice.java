@@ -75,7 +75,26 @@ public class P01_JDBCPractice {
 
         }
 
+        /*
+        What if we have more than 2 row
 
+
+         */
+
+        ResultSetMetaData rsmd = rs.getMetaData();
+
+        System.out.println("---- HOW MANY COLUMN WE HAVE    -----");
+        int columnCount = rsmd.getColumnCount();
+        System.out.println(columnCount);
+
+        System.out.println("---- WHAT ARE COLUMN NAMES    -----");
+        System.out.println(rsmd.getColumnName(1));
+        System.out.println(rsmd.getColumnName(2));
+
+        System.out.println("---- PRINT ALL COLUMN NAMES DYNAMICALLY   -----");
+        for (int i = 1; i <= columnCount; i++) {
+            System.out.println(rsmd.getColumnName(i));
+        }
 
 
         rs.close();
