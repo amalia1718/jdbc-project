@@ -35,6 +35,11 @@ public class P01_JDBCPractice {
 
          */
 
+
+
+
+
+
         rs.close();
 
         stmnt.close();
