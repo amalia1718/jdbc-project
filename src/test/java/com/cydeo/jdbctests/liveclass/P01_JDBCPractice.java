@@ -97,6 +97,27 @@ public class P01_JDBCPractice {
         }
 
 
+        System.out.println("---- GET ALL DATA DYNAMICALLY   -----");
+
+        rs.beforeFirst();
+
+        // COUNTRY_ID - AR  COUNTRY_NAME - Argentina
+
+        // ITERATE EACH ROW DYNAMIC
+        while(rs.next()){
+
+            //ITERATE EACH COLUMN DYNAMIC
+            for (int i = 1; i <= columnCount; i++) {
+                System.out.print(rsmd.getColumnName(i)+"-"+rs.getString(i)+"   ");
+            }
+
+            System.out.println();
+
+
+        }
+
+
+
         rs.close();
 
         stmnt.close();
