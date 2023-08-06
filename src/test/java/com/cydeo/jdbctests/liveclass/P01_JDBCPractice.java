@@ -51,6 +51,31 @@ public class P01_JDBCPractice {
         System.out.println(rs.getString(1)+" - "+rs.getString(2));
 
 
+        System.out.println("---- HOW MANY ROW WE HAVE  -----");
+        System.out.println(rs.getRow());
+
+        // HOW MANY ROW WE HAVE
+        // jump into last row
+        // get Row count
+        rs.last();
+        int rowCount = rs.getRow();
+        System.out.println(rowCount);
+
+        System.out.println("---- GET ME PREVIOUS ROW  -----");
+        rs.previous();
+        System.out.println(rs.getString(1)+" - "+rs.getString(2));
+
+
+        rs.beforeFirst();
+        System.out.println("---- PRINT ALL DATA DYNAMICALLY   -----");
+
+        while(rs.next()){
+
+            System.out.println(rs.getString(1)+" - "+rs.getString(2));
+
+        }
+
+
 
 
         rs.close();
