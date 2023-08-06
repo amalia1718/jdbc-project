@@ -3,6 +3,9 @@ package com.cydeo.jdbctests.liveclass;
 import com.cydeo.jdbctests.utility.DB_Util;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import java.util.Map;
+
 public class P02_DBUtilPractice {
 
 
@@ -42,10 +45,15 @@ public class P02_DBUtilPractice {
         System.out.println("GET COLUMN DATA AS LIST--> String columnName");
         System.out.println(DB_Util.getColumnDataAsList("COUNTRY_NAME"));
 
-
         System.out.println("GET ROW MAP");
+        System.out.println(DB_Util.getRowMap(1));
 
         System.out.println("GET ALL ROW AS LIST OF MAP");
+        List<Map<String, String>> allData = DB_Util.getAllRowAsListOfMap();
+
+        for (Map<String, String> eachRow : allData) {
+            System.out.println(eachRow);
+        }
 
         // CLOSE CONN
         DB_Util.destroy();
